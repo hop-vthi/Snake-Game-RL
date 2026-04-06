@@ -34,7 +34,7 @@ self._action_to_direction = {
 For more information and resources:
 + [gymnasium.env](https://gymnasium.farama.org/api/env/#gymnasium.Env)  (mentioned)
 + [Snake-Agent-DQN(Github1)](https://github.com/zanocrate/snake-rl)
-+ [Snake-Environment(Github2)](https://github.com/grantsrb/Gym-Snake)
++ [Snake-DQL(Khá chi tiết)](https://github.com/DragonWarrior15/snake-rl)
 
 **2. Custom Environment Components**
 + `Env __init__`: Đã nói ở trên, xem chi tiết tại [Custom_Env](https://gymnasium.farama.org/introduction/create_custom_env/#)
