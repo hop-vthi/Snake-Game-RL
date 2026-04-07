@@ -45,7 +45,7 @@ For more information and resources:
 **3. Tóm lại về phần Environment**
 Do ở trong Environment cũng có khá nhiều phần nhỏ khác, nên em định chia mỗi người một phần nhỏ đấy, xong sau đó mình đi giải quyết các chức năng tiếp theo. Hoặc không thì mình sẽ chia theo các chức năng luôn:
 + `Environment`
-+ `Train model (DQN)` (Phần này cần đọc hiểu phần Unit 3/ Get batch, Save experience, Có thể sử dụng TensorFlow, Torch, Target NNetwork, State NNetwork...)
++ `Train model (Q-Learning/ DQN)` (Hiện tại thì có thể QL cho dễ triển khai với môi trường của mình cũng không quá phức tạp )
 + `Object Snake`. Các movements của nó -> action. Phần này cần bàn luận 1 chút @.@
 + `Main & Render`. Main thì không có gì quá nhiều. Render() để visualize, animation...
 
