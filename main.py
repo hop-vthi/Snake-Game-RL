@@ -5,6 +5,7 @@ import numpy as np
 from env import SnakeBoardEnv
 from snake import Snake
 
+
 # Khởi tạo các hyperparameters
 
 # Khởi tạo độ dài ban đầu của snake

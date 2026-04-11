@@ -8,12 +8,11 @@ class SnakeBoardEnv(gym.Env):
         self.set_observation_space(box_dimension)  #create_observation_space (including position of snake, apple)
         self.snake = snake
 
-        # Initialize positions - reset()
+    # Initialize positions - reset()
 
-        # Define what the agent can observe
-    def
+    # Define what the agent can observe
     def step(self, action):
-        pass
+        pass 
     def reset(self):
     def random_apple(self):
         # No collide with Snake

@@ -17,3 +17,4 @@
 #           Check (done or not) }|| Xet them truncated khi ma snake out of bond
 #
 #           Check to train
+
