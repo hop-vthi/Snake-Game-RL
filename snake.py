@@ -23,5 +23,4 @@ class Snake(object):
     def is_colliding(self, position):
       pass
 
-    def move_forward(self, action):
-        if (direction ==0){}
+    # def move_forward(self, action):

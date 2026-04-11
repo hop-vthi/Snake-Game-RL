@@ -9,14 +9,6 @@ class SnakeBoardEnv(gym.Env):
         self.apple_location = self.random_apple()
         self.seed()
 
-<<<<<<< HEAD
-    # Initialize positions - reset()
-
-    # Define what the agent can observe
-    def step(self, action):
-        pass 
-    def reset(self):
-=======
     def _get_obs(self):
         return (
             int(self.apple_location[0] > self.snake.head[0]),
@@ -39,7 +31,7 @@ class SnakeBoardEnv(gym.Env):
         # if self.snake.is_colliding(new_position) or self.out_of_bounds(new_position):
 
 
-        # TODO Check if snake died or collide with its body
+        # TODO Check if snakgit e died or collide with its body
         # TODO Reset snake?
         # TODO update Terminate = 1
         terminated = 0
@@ -64,7 +56,6 @@ class SnakeBoardEnv(gym.Env):
         return observation
 
     # Random position of apple (Require: No collide with snake's position)
->>>>>>> main
     def random_apple(self):
         pass
 
