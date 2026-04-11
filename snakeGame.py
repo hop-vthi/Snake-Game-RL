@@ -125,11 +125,13 @@ if __name__ == '__main__':
     env = snakeGame()
     
     # Vòng lặp này mô phỏng quá trình AI đang chơi
+    ActionSpace = ["up","down","right","left"]
     while True:
         # WF : rnd action -> getState -> render currentEnv
-        action = randint(0, 3) 
+        action = ActionSpace[randint(0, 3)]
         reward, done, score = env.step(action)
         env.render()
         if done:
             env.reset()
             # print(f"Game Over! Final Score: {score}")
+
