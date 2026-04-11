@@ -11,16 +11,13 @@ Custom environment. Environment (file `Env.py`) được kế thừa từ [gymna
 1. `observation_space`(Không gian quan sát ví dụ với snake có thể là)
 
 ```python
-obs_space = [head_x,head_y,target_x,target_y]
-obs_space = [[snake_coor],[target_coor]]
-# Với snake_coor[0] đang nghĩ để coor là snake's head. Sau đó custom với length thì length++
-# Hoặc không thì để obs_space là cả một mảng 2D, đánh số target(1) và snake(0). Tuy nhiên thì vẫn phải lưu trữ lại coor của cả hai. Phần này đang nghĩ
+obs_space = [head_x,head_y,target_x,target_y,dflag_forward,dflag_left,dflaf_right]
 ```
 
 2. `action_space` (Không gian di chuyển)
 ```python
 #action_space thì đơn giản chỉ có lên, xuống, trái, phải
-action_space = [0,1,2,3]
+action_space = [0,1,2] #F,L,R
 # Sau đó trong class GridWorldEv cần định nghĩa Ví dụ
 self._action_to_direction = {
             0: np.array([0, 1]),   # Move right (column + 1)
