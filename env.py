@@ -31,7 +31,7 @@ class SnakeBoardEnv(gym.Env):
         # if self.snake.is_colliding(new_position) or self.out_of_bounds(new_position):
 
 
-        # TODO Check if snake died or collide with its body
+        # TODO Check if snakgit e died or collide with its body
         # TODO Reset snake?
         # TODO update Terminate = 1
         terminated = 0
