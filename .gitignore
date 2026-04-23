@@ -1,2 +1,6 @@
 .DS_Store
 __pycache__/
+# mace's remote setup
+pyproject.toml
+.python-version
+uv.lock 

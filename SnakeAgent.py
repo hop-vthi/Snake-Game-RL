@@ -47,11 +47,12 @@ class SnakeAgent:
 
     def update(
             self,
-            obs: tuple[int, int, int, int, int, int, int, int],
+            obs: tuple[bool, bool, int, int, int, int, int, int],
             action: int,
             reward: float,
             terminated: bool,
-            next_obs: tuple[int, int, int, int, int, int, int, int],
+            next_obs: tuple[bool, bool, int, int, int, int, int, int],
+            # next_obs: tuple[int, int, bool]
     ):
         """Update Q-value based on experience.
 
