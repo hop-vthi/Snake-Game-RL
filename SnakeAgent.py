@@ -31,7 +31,7 @@ class SnakeAgent:
         # Track learning progress
         self.training_error = []
 
-    def get_action(self, obs: tuple[int, int, int, int, int, int, int, int]) -> int:
+    def get_action(self, obs: tuple[bool, bool, int, int, int, int]) -> int:
         """Choose an action using epsilon-greedy strategy.
 
         Returns:
