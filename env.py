@@ -11,7 +11,7 @@ class SnakeBoardEnv(gym.Env):
         self.seed = seed
         self.action_space = gym.spaces.Discrete(3);
         self.observation_space = gym.spaces.MultiDiscrete([2, 2, 2, 2, 2, 4]) # check below
-
+    
     def _get_obs(self):
         df_forward, df_left, df_right = self.snake.check_danger_flag()
         # observation order
