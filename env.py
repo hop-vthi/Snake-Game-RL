@@ -11,7 +11,7 @@ class SnakeBoardEnv(gym.Env):
         self.seed = seed
         self.action_space = gym.spaces.Discrete(3);
         self.observation_space = gym.spaces.MultiDiscrete([2, 2, 2, 2, 2, 4]) # check below
-
+    
     def _get_obs(self):
         df_forward, df_left, df_right = self.snake.check_danger_flag()
         # observation order
@@ -21,7 +21,7 @@ class SnakeBoardEnv(gym.Env):
         # danger left flag
         # danger right flag
         # snake head direction 
-        return np.array([
+        arr=np.array([
             True if self.apple_location[0] > self.snake.body[0][0] else False, 
             True if self.apple_location[1] > self.snake.body[0][1] else False,
             df_forward,
@@ -29,7 +29,13 @@ class SnakeBoardEnv(gym.Env):
             df_right,
             self.snake.direction
         ])
-
+        # tuple_arr = tuple(map(tuple, arr))
+        tuple_arr = tuple(arr)
+        # Adding NumPy array to set
+        # error_set.set()
+        # error_set.add(tuple_arr)
+        # print(type(error_set))
+        return tuple_arr
     # action must be either 0, 1 or 2 
     def step(self, action):
         # new position of snake
@@ -50,7 +56,12 @@ class SnakeBoardEnv(gym.Env):
         # Terminate the game
         elif self.snake.is_collision(new_position[0], new_position[1]) or self.out_of_bounds(new_position):
             reward = -5
-            return ([], reward, True, False, {})
+            return (0, reward, True, False, {})
+            # obs = 0 -> no observation - mace
+            # why does the code run after this!?? 
+            # answer: update() from SnakeAgent.py "line 62"
+                    # (Zero if episode terminated - no future rewards possible)
+
         # Nothing special happened, snake continue to live 
         # No reward
         # Informs the snake that it didn't eat an apple

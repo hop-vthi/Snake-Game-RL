@@ -14,7 +14,7 @@ class Snake(object):
     def reset(self):
         # snake[0] là ĐẦU RẮN
         self.body = [[5, 10], [4, 10], [3, 10], [2, 10], [1, 10]]  #index 0 is head
-        self.direction = self.directions[3] #Reset Right Direction
+        self.direction = self.directions[3] #Right Direction is the default (after reset)
         self.score = 0
         self.frame_iteration = 0 # Dùng cho sau nay khi train -> giới hạn tg 1 lần chs game
     # self.place_apple()
