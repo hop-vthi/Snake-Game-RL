@@ -3,6 +3,7 @@ from env import SnakeBoardEnv
 from snake import Snake
 from SnakeAgent import SnakeAgent
 from gymnasium.wrappers.vector import RecordEpisodeStatistics
+from render import Render
 # Training hyperparameters
 learning_rate = 0.01        # How fast to learn (higher = faster but less stable)
 # n_episodes = 500000        # Number of hands to practice
@@ -33,6 +34,8 @@ for episode in tqdm(range(n_episodes)):
 
         # Learn from this experience
         agent.update(obs, action, reward, terminated, next_obs)
+
+        Render().render(env.snake.body, env.apple_location)
 
         # Move to next state
         done = terminated
