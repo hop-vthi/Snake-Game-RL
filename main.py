@@ -7,7 +7,7 @@ from render import Render
 # Training hyperparameters
 learning_rate = 0.01        # How fast to learn (higher = faster but less stable)
 # n_episodes = 500000        # Number of hands to practice
-n_episodes = 500# Number of hands to practice
+n_episodes = 500000# Number of hands to practice
 start_epsilon = 1.0         # Start with 100% random actions
 epsilon_decay = start_epsilon / (n_episodes / 2)  # Reduce exploration over time
 final_epsilon = 0.1         # Always keep some exploration
@@ -37,7 +37,7 @@ for episode in tqdm(range(n_episodes)):
         # Learn from this experience
         agent.update(obs, action, reward, terminated, next_obs)
 
-        display.render(env.snake.body, env.apple_location)
+        display.render(env.snake.body, env.apple_location) if episode >= n_episodes - 100 else None
 
         # Move to next state
         done = terminated
