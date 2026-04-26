@@ -19,6 +19,8 @@ agent = SnakeAgent(env, learning_rate, start_epsilon, epsilon_decay, final_epsil
 
 # env = RecordEpisodeStatistics(env) # custom env not applicable -mace
 
+display = Render()
+
 for episode in tqdm(range(n_episodes)):
     # Start a new hand
     obs, throwaway_empty_dict = env.reset() #add padding -mace
@@ -35,7 +37,7 @@ for episode in tqdm(range(n_episodes)):
         # Learn from this experience
         agent.update(obs, action, reward, terminated, next_obs)
 
-        Render().render(env.snake.body, env.apple_location)
+        display.render(env.snake.body, env.apple_location)
 
         # Move to next state
         done = terminated
