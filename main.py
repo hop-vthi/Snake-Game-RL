@@ -37,7 +37,7 @@ for episode in tqdm(range(n_episodes)):
         # Learn from this experience
         agent.update(obs, action, reward, terminated, next_obs)
 
-        display.render(env.snake.body, env.apple_location) if episode % 100 == 0 or episode >= n_episodes - 100 else None
+        display.render(env.snake.body, env.apple_location) if episode >= n_episodes - 100 else None
 
         # Move to next state
         done = terminated

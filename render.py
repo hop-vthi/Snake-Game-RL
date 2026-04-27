@@ -21,6 +21,8 @@ class Render:
         # Draw snake
         for segment in snake_body:
             pygame.draw.rect(self.screen, (0, 255, 0), (segment[0] * cell_size, segment[1] * cell_size, cell_size, cell_size))
+        
+        pygame.draw.rect(self.screen, (255, 0, 255), (snake_body[0][0] * cell_size, snake_body[0][1] * cell_size, cell_size, cell_size))
             
         pygame.display.flip()
         self.clock.tick(30)
