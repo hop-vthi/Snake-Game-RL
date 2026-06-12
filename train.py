@@ -78,7 +78,6 @@ def load_agent_q_table(agent, filepath: str = "weights/snake_q_table.pkl") -> bo
         agent.q_values = defaultdict(
             lambda: np.zeros(agent.env.action_space.n), raw_q_dict
         )
-        print(f"[IO LOADED] Da tai thanh cong Q-table tu: {filepath}. San sang demo!")
         return True
     else:
         print(f"[IO WARNING] Khong tim thay file {filepath}! Agent se choi ngau nhien.")

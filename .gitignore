@@ -3,5 +3,8 @@ __pycache__/
 # mace's remote setup
 pyproject.toml
 .python-version
-uv.lock 
+uv.lock
+.gitignore
+Snake.iml
 *.pyc
+
