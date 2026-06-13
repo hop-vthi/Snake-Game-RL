@@ -4,6 +4,7 @@ import os
 import pickle
 from collections import defaultdict
 
+
 def get_moving_avgs(arr, window, convolution_mode):
     """Compute moving average to smooth noisy data."""
     if len(arr) < window:
@@ -15,16 +16,18 @@ def get_moving_avgs(arr, window, convolution_mode):
     )
 
 
-# TODO : sửa lại đoạn env.return_queue 
-def plot_training_results(env, agent, rolling_length: int = 500):
-    fig, axs = plt.subplots(ncols=3, figsize=(15, 5))
+# TODO : sửa lại đoạn env.return_queue
+def plot_training_results(episode_rewards, episode_lengths, episode_scores, agent, rolling_length: int = 500):
+    fig, axs = plt.subplots(ncols=4, figsize=(20, 5))
+
+    rl_reward = min(rolling_length, len(episode_rewards))
+    rl_length = min(rolling_length, len(episode_lengths))
+    rl_error  = min(rolling_length, len(agent.training_error))
 
     # 1. Đồ thị Episode rewards (Tổng phần thưởng nhận được)
     # env.return_queue thường là một danh sách lưu reward của các tập gần nhất
     axs[0].set_title("Episode rewards")
-    reward_moving_average = get_moving_avgs(
-        env.return_queue, rolling_length, "valid"
-    )
+    reward_moving_average = get_moving_avgs(episode_rewards, rl_reward, "valid")
     axs[0].plot(range(len(reward_moving_average)), reward_moving_average)
     axs[0].set_ylabel("Average Reward")
     axs[0].set_xlabel("Episode")
@@ -32,24 +35,26 @@ def plot_training_results(env, agent, rolling_length: int = 500):
     # 2. Đồ thị Episode lengths (Số bước đi/thời gian sống của rắn mỗi trận)
     # env.length_queue lưu độ dài mỗi episode
     axs[1].set_title("Episode lengths")
-    length_moving_average = get_moving_avgs(
-        env.length_queue, rolling_length, "valid"
-    )
+    length_moving_average = get_moving_avgs(episode_lengths, rl_length, "valid")
     axs[1].plot(range(len(length_moving_average)), length_moving_average)
     axs[1].set_ylabel("Average Episode Length")
     axs[1].set_xlabel("Episode")
 
-    # 3. Đồ thị Training error (Sai số TD-Error của thuật toán Q-learning)
+    # 3. Đồ thị Episode scores (Số điểm /thời gian sống của rắn mỗi trận)
+    # env.length_queue lưu độ dài mỗi episode
+    axs[2].set_title("Episode scores")
+    length_moving_average = get_moving_avgs(episode_scores, rl_length, "valid")
+    axs[2].plot(range(len(length_moving_average)), length_moving_average)
+    axs[2].set_ylabel("Average Episode Score")
+    axs[2].set_xlabel("Episode")
+
+    # 4. Đồ thị Training error (Sai số TD-Error của thuật toán Q-learning)
     # Rút trực tiếp từ mảng training_error bạn đã định nghĩa trong SnakeAgent
-    axs[2].set_title("Training Error")
-    training_error_moving_average = get_moving_avgs(
-        agent.training_error, rolling_length, "same"
-    )
-    axs[2].plot(
-        range(len(training_error_moving_average)), training_error_moving_average
-    )
-    axs[2].set_ylabel("Temporal Difference Error")
-    axs[2].set_xlabel("Step")
+    axs[3].set_title("Training Error")
+    training_error_moving_average = get_moving_avgs(agent.training_error, rl_error, "same")
+    axs[3].plot(range(len(training_error_moving_average)), training_error_moving_average)
+    axs[3].set_ylabel("Temporal Difference Error")
+    axs[3].set_xlabel("Step")
 
     plt.tight_layout()
     plt.show()

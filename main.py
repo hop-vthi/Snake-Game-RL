@@ -9,7 +9,7 @@ from SnakeAgent import SnakeAgent
 from train import *
 from render import Render
 
-train_mode = False
+train_mode = True
 MODEL_PATH = os.path.join("weights", "snake_q_table.pkl")
 # Training hyperparameters
 learning_rate = 0.01        # How fast to learn (higher = faster but less stable)
@@ -24,15 +24,22 @@ env = SnakeBoardEnv(snake, 15, 42) #snake, size, seed
 agent = SnakeAgent(env, learning_rate, start_epsilon, epsilon_decay, final_epsilon)
 # env = RecordEpisodeStatistics(env) # custom env not applicable -mace
 display = Render()
+episode_rewards = []
+episode_lengths = []
+episode_scores = []
+max_score = 0
+
+
 
 if train_mode:
-
-
-    
     for episode in tqdm(range(n_episodes)):
         # Start a new hand
         obs, throwaway_empty_dict = env.reset() #add padding -mace
         done = False
+        total_reward = 0
+        step_count = 0
+        score = 0
+        check_goal = 0
 
         # shitass_counter = 0
         while not done:
@@ -40,8 +47,10 @@ if train_mode:
             action = agent.get_action(obs)
 
             # Take action and observe result
-            next_obs, reward, terminated, throwaway1, throwaway2 = env.step(action)
+            next_obs, reward, terminated, throwaway1, throwaway2, check_goal = env.step(action)
 
+            # if check_goal =1 meaning that snake eats food
+            score+= check_goal
             # Learn from this experience
             agent.update(obs, action, reward, terminated, next_obs)
 
@@ -51,26 +60,37 @@ if train_mode:
             done = terminated
             obs = next_obs
 
+            # Calculate total_reward and step_count at each episode
+            total_reward+=reward
+            step_count+=1
+
+        # Appending reward and step after each episode
+        episode_rewards.append(total_reward)
+        episode_lengths.append(step_count)
+        episode_scores.append(score)
+        max_score = max(score, max_score)
         # Reduce exploration rate (agent becomes less random over time)
         agent.decay_epsilon()
-    save_agent_q_table(agent, MODEL_PATH)
-else:
+    #save_agent_q_table(agent, MODEL_PATH)
+    plot_training_results(episode_rewards, episode_lengths, episode_scores, agent)
+    print(f'Max score: {max_score}')
+
+#else:
     # Gọi hàm từ file train để nạp bộ não cũ vào Agent
-    if load_agent_q_table(agent, MODEL_PATH):
-        agent.epsilon = 0.0  # Khóa tính năng chạy ngẫu nhiên, ép ăn mồi tối ưu nhất
-    
-        # Chạy thử 3 trận
-        for demo_ep in range(3):
-            print(f"Chay tran demo so {demo_ep + 1}...")
-            obs, _ = env.reset()
-            done = False
-            
-            while not done:
-                display.render(env.snake.body, env.apple_location)
-                action = agent.get_action(obs)
-                next_obs, reward, terminated, _, _ = env.step(action)
-                obs = next_obs
-                done = terminated   
+    # if load_agent_q_table(agent, MODEL_PATH):
+    #     agent.epsilon = 0.0  # Khóa tính năng chạy ngẫu nhiên, ép ăn mồi tối ưu nhất
+    #     # Chạy thử 3 trận
+    #     for demo_ep in range(3):
+    #         print(f"Chay tran demo so {demo_ep + 1}...")
+    #         obs, _ = env.reset()
+    #         done = False
+    #
+    #         while not done:
+    #             display.render(env.snake.body, env.apple_location)
+    #             action = agent.get_action(obs)
+    #             next_obs, reward, terminated, _, _ = env.step(action)
+    #             obs = next_obs
+    #             done = terminated
     #plot_training_results(env,agent,10000)
      
 # for key in dict(agent.q_values):

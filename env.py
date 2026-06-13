@@ -11,7 +11,7 @@ class SnakeBoardEnv(gym.Env):
         self.seed = seed
         self.action_space = gym.spaces.Discrete(3);
         self.observation_space = gym.spaces.MultiDiscrete([2, 2, 2, 2, 2, 4]) # check below
-    
+
     def _get_obs(self):
         df_forward, df_left, df_right = self.snake.check_danger_flag()
         # observation order
@@ -40,7 +40,6 @@ class SnakeBoardEnv(gym.Env):
     def step(self, action):
         # new position of snake
         new_position, _ = self.snake.movement(action)
-
         # If snake reached apple then
         # Informs the snake that it has eaten an apple
         # Give it a good reward
@@ -49,14 +48,14 @@ class SnakeBoardEnv(gym.Env):
             self.snake.check_apple(True)
             reward = 10
             self.apple_location = self.random_apple()
-            observation = self._get_obs();
-            return (observation, reward, False, False, {})
+            observation = self._get_obs()
+            return (observation, reward, False, False, {}, 1)
         # If the snake collided with its body or it goes out of bound
         # Give it bad reward
         # Terminate the game
         elif self.snake.is_collision(new_position[0], new_position[1]) or self.out_of_bounds(new_position):
             reward = -5
-            return (0, reward, True, False, {})
+            return (0, reward, True, False, {},0)
             # obs = 0 -> no observation - mace
             # why does the code run after this!?? 
             # answer: update() from SnakeAgent.py "line 62"
@@ -69,7 +68,7 @@ class SnakeBoardEnv(gym.Env):
             reward = 0
             self.snake.check_apple(False)
             observation = self._get_obs();
-            return (observation, reward, False, False, {})
+            return (observation, reward, False, False, {}, 0)
 
     def reset(self, *, seed: Optional[int] = None, options: Optional[dict] = None):
         super().reset(seed=seed)
